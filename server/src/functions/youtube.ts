@@ -1,5 +1,4 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { createReadStream, createWriteStream } from "fs";
 import { Readable } from 'stream';
 import ytdl = require("ytdl-core");
 
@@ -15,7 +14,7 @@ export async function youtube(request: HttpRequest, context: InvocationContext):
 };
 
 app.http('youtube', {
-    methods: ['GET', 'POST'],
+    methods: ['GET'],
     authLevel: 'anonymous',
     handler: youtube
 });
