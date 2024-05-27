@@ -6,7 +6,7 @@ const scdl = require('soundcloud-downloader').default;
 app.setup({ enableHttpStream: true });
 
 export async function soundcloud(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-    const soundId = request.query.get('s');
+    const soundId = request.query.get('id');
     const info: TrackInfo[] = await scdl.getTrackInfoByID([soundId]);
     if (!info || !info.length) {
         return { status: 404 };
