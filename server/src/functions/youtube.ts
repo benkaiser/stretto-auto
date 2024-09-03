@@ -1,6 +1,6 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { Readable } from 'stream';
-import ytdl = require("ytdl-core");
+import ytdl = require("@distube/ytdl-core");
 
 app.setup({ enableHttpStream: true });
 
