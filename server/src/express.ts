@@ -125,6 +125,39 @@ app.get('/youtubeRedirect', async (req, res) => {
     }
 });
 
+function deleteOldTmpFiles() {
+  const oneHourAgo = Date.now() - (1000 * 60 * 60); // Time threshold (one hour ago)
+
+  fs.readdir('tmp', (err, files) => {
+    if (err) {
+      console.error('Error reading tmp folder:', err);
+      return;
+    }
+
+    files.forEach(file => {
+      fs.stat('tmp/' + file, (err, stats) => {
+        if (err) {
+          console.error('Error checking file stats:', err);
+          return;
+        }
+
+        if (stats.isFile() && stats.mtime.getTime() < oneHourAgo) {
+          fs.unlink('tmp/' + file, err => {
+            if (err) {
+              console.error('Error deleting file:', err);
+            } else {
+              console.log(`Deleted old file: ${'tmp/' + file}`);
+            }
+          });
+        }
+      });
+    });
+  });
+}
+
+// Run the function every hour (1000 ms * 60 s * 60 min)
+setInterval(deleteOldTmpFiles, 1000 * 60 * 60);
+
 https.createServer({
     key: fs.readFileSync("/etc/letsencrypt/live/stretto.tplinkdns.com/privkey.pem"),
     cert: fs.readFileSync("/etc/letsencrypt/live/stretto.tplinkdns.com/cert.pem")
