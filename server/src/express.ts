@@ -223,7 +223,7 @@ function deleteOldTmpFiles() {
 setInterval(deleteOldTmpFiles, 1000 * 60 * 60);
 
 const keyPath = "/etc/letsencrypt/live/stretto.tplinkdns.com/privkey.pem";
-const certPath = "/etc/letsencrypt/live/stretto.tplinkdns.com/cert.pem";
+const certPath = "/etc/letsencrypt/live/stretto.tplinkdns.com/fullchain.pem";
 
 // Check if SSL certificate files exist
 if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
